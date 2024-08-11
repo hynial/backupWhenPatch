@@ -17,3 +17,9 @@ del /s /q .\*.DS_Store
 rmdir /s /q *.svn
 del /S C:\Path\to\directory\*
 
+# svn command generally usages.
+svn status -u
+svn status -q
+svn st | grep ^M
+svn diff -r 8507:HEAD --summarize
+svn log
