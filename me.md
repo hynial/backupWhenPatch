@@ -11,3 +11,9 @@ Patching the local changed files to a file list, which would be backup under a t
     Artifacts > Add > Given Main Method, set extract libraries whether.
 ## Build The Artifacts From Menu : 
     Build > Build Artifacts > Choose Your Jar Artifact.
+
+# Remove file/directory recursive on Windows.
+del /s /q .\*.DS_Store
+rmdir /s /q *.svn
+del /S C:\Path\to\directory\*
+
