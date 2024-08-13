@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--https://www.cnblogs.com/skysailstar/p/17736274.html-->
+<!--https://stackoverflow.com/questions/27319332/how-to-include-classpath-jars-in-a-war-file-using-ant-->
+<project basedir="." default="packWar" name="xmjhx">
+    <property environment="env"/>
+    <property name="debugLevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+
+    <!--自定义部分-->
+    <property name="build" value="${basedir}/build"/>
+    <property name="build.class" value="${basedir}/build/classes"/>
+    <property name="src" value="${basedir}/src"/>
+    <property name="web" value="${basedir}/WebRoot"/>
+    <property name="project_jar_path" value="${web}/WEB-INF/lib"/>
+    <property name="project_jar_path2" value="${web}/WEB-INF/lib-struts"/>
+    <property name="jre_jar_path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/jre/lib"/>
+    <property name="jre_jar_ext_path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/jre/lib/ext"/>
+    <property name="tomcat_jar_path" value="/Users/hynial/CustApps/apache-tomcat-8.5.100/lib"/>
+    <path id="project_jar">
+        <fileset dir="${project_jar_path}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <path id="project_jar2">
+        <fileset dir="${project_jar_path2}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <path id="jre_jar">
+        <fileset dir="${jre_jar_path}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <path id="jre_ext_jar">
+        <fileset dir="${jre_jar_ext_path}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <path id="tomcat_jar">
+        <fileset dir="${tomcat_jar_path}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <path id="TARGET.classpath">
+        <pathelement location="build/classes"/>
+        <path refid="project_jar"/>
+        <path refid="project_jar2"/>
+        <path refid="jre_jar"/>
+        <path refid="jre_ext_jar"/>
+        <path refid="tomcat_jar"/>
+    </path>
+    <target name="clean">
+        <echo message="--------------------开始清理旧的编译文件---------------------------"/>
+        <delete dir="build/classes"/>
+        <delete file="${basedir}/build/${ant.project.name}.war"/>
+    </target>
+    <target name="init">
+        <echo message="---------------------开始拷贝资源文件-----------------------------"/>
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <!--<copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="resources">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>-->
+    </target>
+    <target name="build">
+        <echo message="-----------------------开始编译JAVA文件-----------------------------"/>
+        <echo message="${ant.project.name}: ${ant.file}"/>
+
+        <javac debug="true" debugLevel="${debugLevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+<!--            <src path="resources"/>-->
+            <classpath refid="TARGET.classpath"/>
+        </javac>
+    </target>
+    <target name="packWar">
+        <!--<copy todir="${build}/lib">
+            <fileset dir="${build}/lib"/>
+        </copy>-->
+        <echo message="-----------------------开始构建war包-----------------------------"/>
+        <war destfile="${basedir}/build/${ant.project.name}.war" webxml="${web}/WEB-INF/web.xml">
+            <fileset dir="${web}"/>
+            <!--<path>
+                <path refid="TARGET.classpath"/>
+            </path>-->
+            <lib dir ="${project_jar_path2}">
+                <include name="**/*.*"/>
+            </lib>
+            <classes dir="${build.class}"/>
+        </war>
+    </target>
+</project>
