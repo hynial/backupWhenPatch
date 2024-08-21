@@ -24,4 +24,6 @@ script.sh
 /webapps/
 pathList.txt
 patchPathList.txt
+workStashList.txt
 /upgrade/
+/stash/
