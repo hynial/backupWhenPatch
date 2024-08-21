@@ -66,6 +66,8 @@ public class PatchMain {
                 String lineTxt;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     String modifyPath = lineTxt.trim();
+                    if (lineTxt.startsWith("#")) continue;
+                    if (lineTxt == null || lineTxt.trim().equals("")) continue;
                     if (lineTxt.startsWith("M") || lineTxt.startsWith("?")) {
                         String[] parts = lineTxt.split("\\s+");
                         if (parts.length > 2) {
