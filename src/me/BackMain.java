@@ -25,10 +25,11 @@ public class BackMain {
     private static String deployProjectPath;
 
     public static void main(String[] args) {
-        String defaultConfigPath = "./pathList.txt"; // /Users/hynial/IdeaProjects/gm/backupWhenPatch/pathList.txt
-
+        String defaultConfigPath = "./backPathList.txt"; // /Users/hynial/IdeaProjects/gm/backupWhenPatch/pathList.txt
+        boolean isProd = false;
         String pathListFileString = (args != null && args.length > 0) ? args[0] : defaultConfigPath;
-        if (pathListFileString.equals(".")) {
+        if (pathListFileString.equals(".") || pathListFileString.equals("_")) {
+            isProd = pathListFileString.equals("_");
             pathListFileString = defaultConfigPath;
         }
         String backupTargetDir = (args != null && args.length > 1) ? args[1] : "./";
@@ -40,6 +41,9 @@ public class BackMain {
         if (isEmpty(inputWebappsPath)) {
             if (isWindows()) {
                 webappsPath = "D:\\jzww_tomcat\\webapps\\";
+                if (isProd) {
+                    webappsPath = "D:\\data\\apache-tomcat-8.5\\webapps\\";
+                }
             }
         } else {
             webappsPath = inputWebappsPath.trim();
