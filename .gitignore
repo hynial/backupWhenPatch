@@ -22,8 +22,9 @@ mvnw.cmd
 script.sh
 /out/
 /webapps/
-pathList.txt
+backPathList.txt
 patchPathList.txt
 workStashList.txt
+patchPathList-test.txt
 /upgrade/
 /stash/

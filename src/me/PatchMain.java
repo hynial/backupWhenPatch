@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PatchMain {
-
+    private static boolean isTest = true;
     private static final String SEP = File.separator;
     private static String defaultProjectPath = "/Users/hynial/IdeaProjects/gm/svn/xmjhx/";
     private static String defaultUpgradePath = "./upgrade/";
@@ -16,6 +16,9 @@ public class PatchMain {
      */
     public static void main(String[] args) throws IOException {
         String defaultConfigPath = "./patchPathList.txt";
+        if (isTest) {
+            defaultConfigPath = "./patchPathList-test.txt";
+        }
         String pathListFileString = (args != null && args.length > 0) ? args[0] : defaultConfigPath;
         if (pathListFileString.equals(".")) {
             pathListFileString = defaultConfigPath;
@@ -68,10 +71,10 @@ public class PatchMain {
                     String modifyPath = lineTxt.trim();
                     if (lineTxt.startsWith("#")) continue;
                     if (lineTxt == null || lineTxt.trim().equals("")) continue;
-                    if (lineTxt.startsWith("M") || lineTxt.startsWith("?")) {
+                    if (lineTxt.startsWith("M") || lineTxt.startsWith("?") || lineTxt.startsWith("A")) {
                         String[] parts = lineTxt.split("\\s+");
                         if (parts.length > 2) {
-                            modifyPath = parts[2];
+                            modifyPath = parts[parts.length -1];
                         } else {
                             modifyPath = parts[1];
                         }
