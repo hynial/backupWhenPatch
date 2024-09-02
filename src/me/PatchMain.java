@@ -15,10 +15,16 @@ public class PatchMain {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        String defaultConfigPath = "./patchPathList.txt";
+        String defaultConfigPath = "./patchPathList-prd.txt";
+        System.out.println("isProduction(DefaultNo):");
+        Scanner keyboard = new Scanner(System.in);
+        String inputNode = keyboard.nextLine();
+        isTest = (inputNode == null || inputNode.equals("")) || ( !"1".equals(inputNode) && !"y".equalsIgnoreCase(inputNode) );
+
         if (isTest) {
             defaultConfigPath = "./patchPathList-test.txt";
         }
+        System.out.println("is:" + (isTest ? "Test" : "Production"));
         String pathListFileString = (args != null && args.length > 0) ? args[0] : defaultConfigPath;
         if (pathListFileString.equals(".")) {
             pathListFileString = defaultConfigPath;
