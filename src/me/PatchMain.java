@@ -7,7 +7,7 @@ import java.util.*;
 public class PatchMain {
     private static boolean isTest = true;
     private static final String SEP = File.separator;
-    private static String defaultProjectPath = "/Users/hynial/IdeaProjects/gm/svn/xmjhx/";
+    private static String defaultProjectPath = "/Users/hynial/IdeaProjects/gm/xmjhx/";
     private static String defaultUpgradePath = "./upgrade/";
 
     /**
