@@ -93,7 +93,7 @@ public class PatchMain {
                             int k = 1;
                             while (true) {
                                 String tempF = temp + k + ".class";
-                                File tempFile = new File(tempF);
+                                File tempFile = new File(codeProjectPath + tempF);
                                 if (!tempFile.exists()) {
                                     break;
                                 }
