@@ -1,6 +1,6 @@
 #!/bin/bash
 
-preCompressDir=/Users/hynial/IdeaProjects/gm/backupWhenPatch/upgrade/2024-09-02_182900/
+preCompressDir=/Users/hynial/IdeaProjects/gm/backupWhenPatch/upgrade/2024-09-10_190249/
 targetDir=/Users/hynial/0-jzww/1-patches/
 
 versionName=$(basename ${preCompressDir})

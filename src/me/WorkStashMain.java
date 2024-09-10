@@ -13,7 +13,7 @@ public class WorkStashMain {
         System.out.println(String.format("ExecuteUnderOS: %s", OS));
     }
     private static final String SEP = File.separator;
-    public static final String DEFAULT_PROJECT_DIR = "/Users/hynial/IdeaProjects/gm/svn/xmjhx/";
+    public static final String DEFAULT_PROJECT_DIR = "/Users/hynial/IdeaProjects/gm/xmjhx/";
     private static final String defaultStashPath = "./stash/";
     private static final String defaultStashNode = "未填写功能描述";
 
