@@ -108,7 +108,6 @@ public class PatchMain {
                             File[] foundFiles = dir.listFiles(new FilenameFilter() {
                                 @Override
                                 public boolean accept(File dir, String name) {
-
                                     return name.matches(fileNameTemplate);
                                 }
                             });
