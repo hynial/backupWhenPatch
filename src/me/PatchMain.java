@@ -74,9 +74,9 @@ public class PatchMain {
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
+                    if (lineTxt == null || lineTxt.trim().equals("")) continue;
                     String modifyPath = lineTxt.trim();
                     if (lineTxt.startsWith("#")) continue;
-                    if (lineTxt == null || lineTxt.trim().equals("")) continue;
                     if (lineTxt.startsWith("M") || lineTxt.startsWith("?") || lineTxt.startsWith("A")) {
                         String[] parts = lineTxt.split("\\s+");
                         if (parts.length > 2) {
@@ -88,17 +88,39 @@ public class PatchMain {
                     if (modifyPath.startsWith("src/")) {
                         modifyPath = "WebRoot/WEB-INF/classes" + modifyPath.substring(3);
                         if (modifyPath.endsWith("java")) {
-                            modifyPath = modifyPath.substring(0, modifyPath.length() - 4) + "class";
+                            modifyPath = modifyPath.substring(0, modifyPath.length() - 4) + "class"; // .java > .class
                             String temp = modifyPath.substring(0, modifyPath.length() - 6) + "$";
-                            int k = 1;
-                            while (true) {
-                                String tempF = temp + k + ".class";
-                                File tempFile = new File(codeProjectPath + tempF);
-                                if (!tempFile.exists()) {
-                                    break;
+                            // 这儿开始考虑匿名类 - 以$+数字命名 - 被下面的方法覆盖了
+//                            int k = 1;
+//                            while (true) {
+//                                String tempF = temp + k + ".class";
+//                                File tempFile = new File(codeProjectPath + tempF);
+//                                if (!tempFile.exists()) {
+//                                    break;
+//                                }
+//                                resultMap.put(codeProjectPath + tempF, upgradeTargetDir + tempF);
+//                                k++;
+//                            }
+                            // 这儿开始考虑内部类 - 以$+内部类名
+                            File f1 = new File(codeProjectPath + modifyPath);
+                            final String fileNameTemplate = f1.getName().substring(0, f1.getName().length() - 6) + "\\$.*\\.class"; // 指定文件名模板
+                            File dir = f1.getParentFile();
+                            File[] foundFiles = dir.listFiles(new FilenameFilter() {
+                                @Override
+                                public boolean accept(File dir, String name) {
+
+                                    return name.matches(fileNameTemplate);
                                 }
-                                resultMap.put(codeProjectPath + tempF, upgradeTargetDir + tempF);
-                                k++;
+                            });
+
+                            if (foundFiles != null) {
+                                for (File f : foundFiles) {
+                                    System.out.println(f.getAbsolutePath());
+                                    String absPath = f.getAbsolutePath();
+                                    if (resultMap.get(absPath) == null) {
+                                        resultMap.put(absPath, upgradeTargetDir + absPath.replace(codeProjectPath, ""));
+                                    }
+                                }
                             }
                         }
                     }
