@@ -114,7 +114,6 @@ public class PatchMain {
 
                             if (foundFiles != null) {
                                 for (File f : foundFiles) {
-                                    System.out.println(f.getAbsolutePath());
                                     String absPath = f.getAbsolutePath();
                                     if (resultMap.get(absPath) == null) {
                                         resultMap.put(absPath, upgradeTargetDir + absPath.replace(codeProjectPath, ""));
