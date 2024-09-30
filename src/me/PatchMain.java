@@ -77,6 +77,7 @@ public class PatchMain {
                     if (lineTxt == null || lineTxt.trim().equals("")) continue;
                     String modifyPath = lineTxt.trim();
                     if (lineTxt.startsWith("#")) continue;
+                    if (lineTxt.startsWith("D")) continue;
                     if (lineTxt.startsWith("M") || lineTxt.startsWith("?") || lineTxt.startsWith("A")) {
                         String[] parts = lineTxt.split("\\s+");
                         if (parts.length > 2) {
