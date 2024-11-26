@@ -41,9 +41,9 @@ public class PatchMain {
             codeProjectPath = defaultProjectPath;
         }
 
-        System.out.println(String.format("pathListFile:\t%s", pathListFileString));
-        System.out.println(String.format("backupTargetDir:\t%s", upgradeTargetDir));
-        System.out.println(String.format("codeProjectPath:\t%s", codeProjectPath));
+        System.out.printf("pathListFile:\t%s%n", pathListFileString);
+        System.out.printf("backupTargetDir:\t%s%n", upgradeTargetDir);
+        System.out.printf("codeProjectPath:\t%s%n", codeProjectPath);
 
         System.out.println("开始生成升级包");
         Map<String, String> unDeletes = readTxtFile4Upgrade(pathListFileString, upgradeTargetDir, codeProjectPath);

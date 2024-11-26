@@ -23,3 +23,5 @@ svn status -q
 svn st | grep ^M
 svn diff -r 8507:HEAD --summarize
 svn log
+
+# svn diff -r 9005:HEAD --summarize | grep -v test | grep -E '\S[.]{1}\S' | grep -Ev '^D.*' | grep -Ev '.*\.vm$'
