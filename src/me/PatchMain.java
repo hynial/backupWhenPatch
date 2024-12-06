@@ -35,6 +35,10 @@ public class PatchMain {
             upgradeTargetDir = defaultUpgradePath;
         }
         upgradeTargetDir = upgradeFolderName(upgradeTargetDir);
+        if (!isTest) {
+            upgradeTargetDir += "_prd";
+        }
+        upgradeTargetDir +=  SEP;
 
         String codeProjectPath = System.getProperty("codeProjectPath");
         if (codeProjectPath == null || codeProjectPath.trim().equals("")) {
@@ -60,7 +64,7 @@ public class PatchMain {
 
     public static String upgradeFolderName(String upgradeTargetDir) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
-        upgradeTargetDir = upgradeTargetDir + df.format(new Date()) + SEP;
+        upgradeTargetDir = upgradeTargetDir + df.format(new Date());
         return upgradeTargetDir;
     }
 
